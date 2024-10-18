@@ -3,6 +3,7 @@ import User, { IUser } from "../models/Users.js"
 import { IBook } from "../models/Books.js"
 import { signToken, AuthenticationError } from '../utils/auth.js';
 
+
 // Define or import the Context type
 // interface Context {
 //     user?: {
@@ -20,7 +21,7 @@ interface Auth {
 
 const resolvers = {
     Query: {
-        user: async (): Promise<IUser[] | null> => {
+        users: async (): Promise<IUser[] | null> => {
             return User.find({});
             // if something is wrong remove .lean. copilot was suggesting and Im testing it 10/16
         },

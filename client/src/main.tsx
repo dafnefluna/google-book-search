@@ -7,3 +7,10 @@
 // todo: create router (see mini project for example)
 
 // todo: create rootElement
+// const rootElement = document.getElementById('root');
+
+// if (rootElement) {
+//     ReactDOM.createRoot(rootElement).render(
+//         <RouterProvider router={router} />
+//     );
+// }

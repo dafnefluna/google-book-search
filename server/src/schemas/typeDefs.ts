@@ -38,7 +38,7 @@ input BookInput {
 }
 
 type Query {
-    user: [User]
+    users: [User]
     singleUser(_id: ID!): User
     me: User
 }
