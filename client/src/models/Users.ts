@@ -1,6 +1,12 @@
-import IBook from "./Books.js";
+import { IBook } from "./Books.js";
 
-export default interface IUser {
+export interface IAddUser {
+    username?: string;
+    email: string;
+    password: string;
+}
+
+export interface IUser {
     userId: string;
     username: string;
     email: string;

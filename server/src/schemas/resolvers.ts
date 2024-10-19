@@ -35,6 +35,13 @@ const resolvers = {
             }
             return await User.findOne({ _id: context.user._id });
         },
+        savedBooks: async (_parent: any, _args: any, context:any): Promise<IBook[] | null > => {
+            if (!context.user) {
+                throw new AuthenticationError('Not Authenticated');
+            }
+            const user = await User.findOne({_id: context.user._id});
+            return user ? user.savedBooks: null;
+        }
     },
 
     Mutation: {
@@ -79,5 +86,6 @@ const resolvers = {
         }
     }
 }
+// I might have some issues with userId and _id, in the book mutations and typedefs 10/18
 
 export default resolvers;

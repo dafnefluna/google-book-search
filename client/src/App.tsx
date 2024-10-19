@@ -1,18 +1,44 @@
 import './App.css';
+import {
+    ApolloClient,
+    InMemoryCache,
+    ApolloProvider,
+    createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import Navbar from './components/Navbar.js';
+// if some issue try changing navbar to appnavbar
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
     uri: '/graphql',
-    cache: new InMemoryCache(),
 });
 
-// todo: Note: all pages will render via <outlet> unless I set that up differently
+// Construct request middleware that will attach the JWT token to every request as an `authorization` header
+const authLink = setContext((_, { headers = {} }: { headers?: Record<string, string> }) => {
+    // get the authentication token from local storage if it exists
+    const token = localStorage.getItem('id_token');
+    // return the headers to the context so httpLink can read them
+    return {
+        headers: {
+            ...headers,
+            authorization: token ? `Bearer ${token}` : '',
+        },
+    };
+});
+
+const client = new ApolloClient({
+    // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+});
 
 function App() {
     return (
         <ApolloProvider client={client}>
-            <div className="flex-column justify-center align-center min-100-vh bg-primary">
+            <Navbar />
+            <div className="flex-column justify-center align-center">
                 <Outlet />
             </div>
         </ApolloProvider>
