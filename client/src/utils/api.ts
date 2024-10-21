@@ -1,9 +1,8 @@
 import type { IUser, IAddUser } from '../models/Users.js';
-import type { IBook } from '../models/Books.js';
-import type { GoogleAPIVolumeInfo, GoogleAPIBook } from '../models/GoogleAPIBook.js';
+import type {GoogleAPIBook } from '../models/GoogleAPIBook.js';
 import { useMutation, useQuery } from '@apollo/client';
 import { QUERY_USERS, QUERY_SINGLE_USER, QUERY_ME, GOOGLE_BOOKS_QUERY, GET_SAVED_BOOKS } from './queries.js';
-import { CREATE_USER, LOGIN, SAVE_BOOK, REMOVE_BOOK } from './mutations.js';
+import { CREATE_USER, LOGIN} from './mutations.js';
 import Auth from './auth.js';
 
 // todo: get all users logic

@@ -1,9 +1,6 @@
 import { Schema, model, type Document } from 'mongoose';
 import bcrypt from 'bcrypt';
-
-// import schema from Book.js
-// note: in the starter code it says BookDocument, i changed it to to IBook
-import {type IBook, bookSchema } from './Books.js';
+import bookSchema, { IBook } from './Books.js';
 
 // note: in starter it says Userdocument, i used Iuser to follow what I see in module 18.
 // note: in starter code id is the unique id, i changed it to userId to differentiate it from _id
@@ -36,15 +33,15 @@ const userSchema = new Schema<IUser>({
     // set savedBooks to be an array of data that adheres to the bookSchema
     savedBooks: [bookSchema],
 },
-    // set this to use virtual below
-    {
-        toJSON: {
-            virtuals: true,
-            // if something fails think about getters (check activity 23)
-            // toJSON: { getters: true },
-            // toObject: { getters: true },
-        },
-    }
+    // // set this to use virtual below
+    // {
+    //     toJSON: {
+    //         virtuals: true,
+    //         // if something fails think about getters (check activity 23)
+    //         // toJSON: { getters: true },
+    //         // toObject: { getters: true },
+    //     },
+    // }
 );
 
 // hash user password
@@ -53,7 +50,6 @@ userSchema.pre<IUser>('save', async function (next) {
         const saltRounds = 10;
         this.password = await bcrypt.hash(this.password, saltRounds);
     }
-
     next();
 });
 

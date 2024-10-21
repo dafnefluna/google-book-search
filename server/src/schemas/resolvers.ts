@@ -5,11 +5,11 @@ import { signToken, AuthenticationError } from '../utils/auth.js';
 
 
 // Define or import the Context type
-// interface Context {
-//     user?: {
-//         _id: string;
-//     };
-// }
+interface Context {
+    user?: {
+        _id: string;
+    };
+}
 
 // Define the Auth type
 interface Auth {
@@ -29,13 +29,13 @@ const resolvers = {
             const params = _id ? { _id } : {};
             return User.findOne(params);
         },
-        me: async (_parent: any, _args: any, context: any): Promise<IUser | null> => {
+        me: async (_parent: any, _args: any, context: Context): Promise<IUser | null> => {
             if (!context.user) {
                 throw new AuthenticationError('Not Authenticated');
             }
             return await User.findOne({ _id: context.user._id });
         },
-        savedBooks: async (_parent: any, _args: any, context:any): Promise<IBook[] | null > => {
+        savedBooks: async (_parent: any, _args: any, context:Context): Promise<IBook[] | null > => {
             if (!context.user) {
                 throw new AuthenticationError('Not Authenticated');
             }
@@ -45,9 +45,12 @@ const resolvers = {
     },
 
     Mutation: {
-        addUser: async (_parent: any, args: any): Promise<IUser | null> => {
+        addUser: async (_parent: any, args: any): Promise<Auth | null> => {
             const user = await User.create(args);
-            return user;
+            // return user;
+
+            const token = signToken(user.username, user.email, user._id);
+            return { token, user };
         },
         login: async (_parent: any, { email, password }: { email: string; password: string }): Promise<Auth> => {
             // Find a profile by email

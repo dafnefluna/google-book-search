@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 // todo: mutations for creating, updating, and deleting data from the backend
 export const CREATE_USER = gql `
-mutation addUser(username: String!, email: String!, password: String!) {
+mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
         token 
         user {
@@ -11,18 +11,17 @@ mutation addUser(username: String!, email: String!, password: String!) {
             email
         }
     }
-}`;
+}`
 
 export const LOGIN = gql `
-mutation login(email: String!, password: String!){
-    auth(email: $email, password: $password) {
-        email
-        password
+mutation login($email: String!, $password: String!){
+    login(email: $email, password: $password) {
+        token
     }
-}`;
+}`
 
 export const SAVE_BOOK = gql `
-mutation SaveBook(userId:ID!, $input:BookInput) {
+mutation SaveBook($userId: ID!, $input: BookInput) {
     saveBook(userId: $userId, input: $input) {
         _id
         username
@@ -37,10 +36,10 @@ mutation SaveBook(userId:ID!, $input:BookInput) {
             link
         }
     }
-}`;
+}`
 
 export const  REMOVE_BOOK = gql `
-mutation removeBook(userId: ID!, bookId: String!) {
+mutation removeBook($userId: ID!, $bookId: String!) {
     removeBook(userId: $userId, bookId: $bookId ) {
         _id
         username
@@ -55,5 +54,5 @@ mutation removeBook(userId: ID!, bookId: String!) {
             link
             }
     }
-}`;
+}`
 

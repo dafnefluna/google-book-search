@@ -13,5 +13,5 @@ interface GoogleAPIBook {
     volumeInfo: GoogleAPIVolumeInfo;
 }
 
-export { GoogleAPIVolumeInfo, GoogleAPIBook};
+export type { GoogleAPIVolumeInfo, GoogleAPIBook};
 

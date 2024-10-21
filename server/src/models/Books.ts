@@ -1,6 +1,6 @@
-import { Schema, type Document } from 'mongoose';
+import { Schema } from 'mongoose';
 
-interface IBook extends Document {
+export interface IBook {
     bookId: string;
     title: string;
     authors: string[];
@@ -36,4 +36,4 @@ const bookSchema = new Schema<IBook>({
 });
 
 
-export { type IBook, bookSchema };
+export default bookSchema;

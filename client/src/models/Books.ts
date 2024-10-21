@@ -1,4 +1,4 @@
-export interface IBook {
+export default interface IBook {
     bookId: string;
     title: string;
     authors: string[];

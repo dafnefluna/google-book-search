@@ -1,4 +1,4 @@
-import { IBook } from "./Books.js";
+import IBook from "./Books.js";
 
 export interface IAddUser {
     username?: string;

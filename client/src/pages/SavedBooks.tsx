@@ -4,7 +4,7 @@ import { REMOVE_BOOK } from "../utils/mutations";
 import { QUERY_ME } from "../utils/queries.js"
 import { useSavedBooks } from "../utils/api";
 import Auth from "../utils/auth";
-import React from "react";
+// import React from "react";
 
 const SavedBooks = () => {
     // gql query to get the logged-in user's saved books

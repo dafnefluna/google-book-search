@@ -1,17 +1,15 @@
-// see SignupForm.js for comments
 import { useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-import { LOGIN} from '../utils/mutations';
+import { LOGIN } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
-import Auth from '../utils/auth.js';
-import type { IAddUser } from '../models/Users.js';
-import React from 'react';
+import Auth from '../utils/auth';
+import type { IAddUser } from '../models/Users';
+// import React from 'react';
 
-// biome-ignore lint/correctness/noEmptyPattern: <explanation>
-const LoginForm = ({ }: { handleModalClose: () => void }) => {
-    const [userFormData, setUserFormData] = useState<IAddUser>({email: '', password: ''});
-    const [validated] = useState(false);
+const LoginForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
+    const [userFormData, setUserFormData] = useState<IAddUser>({ email: '', password: '' });
+    const [validated, setValidated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [loginUser] = useMutation(LOGIN);
 
@@ -28,6 +26,8 @@ const LoginForm = ({ }: { handleModalClose: () => void }) => {
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
+            setValidated(true);
+            return;
         }
 
         try {
@@ -39,8 +39,8 @@ const LoginForm = ({ }: { handleModalClose: () => void }) => {
             });
 
             Auth.login(data.login.token);
-        }
-        catch (err) {
+            handleModalClose();
+        } catch (err) {
             console.error(err);
             setShowAlert(true);
         }
@@ -49,8 +49,7 @@ const LoginForm = ({ }: { handleModalClose: () => void }) => {
             email: '',
             password: '',
         });
-
-    }
+    };
 
     return (
         <>
@@ -61,7 +60,7 @@ const LoginForm = ({ }: { handleModalClose: () => void }) => {
                 <Form.Group className='mb-3'>
                     <Form.Label htmlFor='email'>Email</Form.Label>
                     <Form.Control
-                        type='text'
+                        type='email'
                         placeholder='Your email'
                         name='email'
                         onChange={handleInputChange}

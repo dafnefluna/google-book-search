@@ -19,7 +19,7 @@ query GetUsers {
             link
         }
     }
-}`;
+}`
 
 export const QUERY_SINGLE_USER = gql`
 query GetSingleUser($id: ID) {
@@ -37,7 +37,7 @@ query GetSingleUser($id: ID) {
             link
         }
     }
-}`;
+}`
 
 export const QUERY_ME = gql`
 query GetMe {
@@ -56,7 +56,7 @@ query GetMe {
     }
     }
 }
-`;
+`
 
 export const GOOGLE_BOOKS_QUERY = gql`
 query GoogleBooks($query: String!) {
@@ -67,9 +67,9 @@ query GoogleBooks($query: String!) {
         imageLinks {
         smallThumbnail
         thumbnail
-        };
+        }
     }
-}`;
+}`
 
 export const GET_SAVED_BOOKS = gql`
 query getSavedBooks {
@@ -82,4 +82,4 @@ query getSavedBooks {
         image
         link
     }
-}`;
+}`
